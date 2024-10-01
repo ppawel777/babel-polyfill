@@ -134,7 +134,7 @@ function getCookie(name) {
                       }
                    } else {
                       if (site_info_div) {
-                         site_info.innerHTML = 'Что-то пошло не так...'
+                        site_info_div.innerHTML = 'Что-то пошло не так...'
                       }
                    }
  
