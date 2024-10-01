@@ -1,3 +1,6 @@
+import 'core-js/fn/promise';
+import 'url-search-params-polyfill';
+
 function getCookie(name) {
     var search = name + '='
     if (document.cookie.length > 0) {
@@ -61,16 +64,28 @@ function getCookie(name) {
     // }
  
     // получаем параметры площадки для поиска
-    const searchParams = new URLSearchParams(window.location.search)
-    for (const [paramName, paramValue] of searchParams.entries()) {
-       // console.log(paramName + ': ' + paramValue)
-       if (paramName == 'RegionID') {
-          var RegionID = paramValue
-       }
-       if (paramName == 'SiteID') {
-          var SiteID = paramValue
-       }
-    }
+   function get(name) {
+      if ((name = new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)').exec(location.search)))
+         return decodeURIComponent(name[1])
+   }
+   var RegionID = get('RegionID') || null
+   var SiteID = get('SiteID') || null
+   console.log('RegionID', RegionID)
+   console.log('SiteID', SiteID)
+
+   //  const searchParams = new URLSearchParams(window.location.search)
+   //  console.log('searchParams', searchParams)
+   //  var RegionID = null
+   //  var SiteID = null
+   //  for (const [paramName, paramValue] of searchParams.entries()) {
+   //     console.log(paramName + ': ' + paramValue)
+   //     if (paramName == 'RegionID') {
+   //        RegionID = paramValue
+   //     }
+   //     if (paramName == 'SiteID') {
+   //        SiteID = paramValue
+   //     }
+   //  }
  
     // если параметры заданы
     if (RegionID && SiteID) {
