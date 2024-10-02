@@ -1,78 +1,69 @@
-<!DOCTYPE html>
-<html lang="en">
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Информация о площадке и контактах</title>
-   <script defer src="bundle.js"></script></head>
-   <style>
-   .container {
-      margin: 1rem;
-      padding: 1.5rem;
-      border: 1px solid #dee2e6;
-      border-radius: 0.375rem;
-   }
-
-   .header {
-      margin-left: 1rem;
-      padding-top: 1rem;
-   }
-
-   .tab {
-      display: flex;
-      flex-wrap: wrap;
-   }
-
-   .tab > input[type="radio"] {
-      display: none;
-   }
-
-   .tab-content {
-      display: none;
-      width: 100%;
-      margin-top: 1rem;
-   }
-
-   #tab-btn-1:checked~#site_info,
-   #tab-btn-2:checked~#contact_info
-   {
-      display: block;
-   }
-
-   .tab > label {
-      display: block;
-      padding: 0.5rem 1rem;
-      cursor: pointer;
-      transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
-      text-decoration: none;
-      color: #0d6efd;
-      border: 0;
-      border-radius: 0.375rem;
-      background: 0 0;
-   }
-
-   .tab > input[type="radio"]:checked + label {
-      cursor: default;
-      color: #fff;
-      background-color: #0d6efd;
-   }
-   </style>
-   <script>
-      /*! For license information please see bundle.js.LICENSE.txt */
-!function(){var t={d:function(e,r){for(var n in r)t.o(r,n)&&!t.o(e,n)&&Object.defineProperty(e,n,{enumerable:!0,get:r[n]})}};t.g=function(){if("object"==typeof globalThis)return globalThis;try{return this||new Function("return this")()}catch(t){if("object"==typeof window)return window}}(),t.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},function(){"use strict";var e="undefined"!=typeof globalThis&&globalThis||"undefined"!=typeof self&&self||void 0!==t.g&&t.g||{},r="URLSearchParams"in e,n="Symbol"in e&&"iterator"in Symbol,o="FileReader"in e&&"Blob"in e&&function(){try{return new Blob,!0}catch(t){return!1}}(),i="FormData"in e,a="ArrayBuffer"in e;if(a)var s=["[object Int8Array]","[object Uint8Array]","[object Uint8ClampedArray]","[object Int16Array]","[object Uint16Array]","[object Int32Array]","[object Uint32Array]","[object Float32Array]","[object Float64Array]"],c=ArrayBuffer.isView||function(t){return t&&s.indexOf(Object.prototype.toString.call(t))>-1};function u(t){if("string"!=typeof t&&(t=String(t)),/[^a-z0-9\-#$%&'*+.^_`|~!]/i.test(t)||""===t)throw new TypeError('Invalid character in header field name: "'+t+'"');return t.toLowerCase()}function l(t){return"string"!=typeof t&&(t=String(t)),t}function f(t){var e={next:function(){var e=t.shift();return{done:void 0===e,value:e}}};return n&&(e[Symbol.iterator]=function(){return e}),e}function h(t){this.map={},t instanceof h?t.forEach((function(t,e){this.append(e,t)}),this):Array.isArray(t)?t.forEach((function(t){if(2!=t.length)throw new TypeError("Headers constructor: expected name/value pair to be length 2, found"+t.length);this.append(t[0],t[1])}),this):t&&Object.getOwnPropertyNames(t).forEach((function(e){this.append(e,t[e])}),this)}function d(t){if(!t._noBody)return t.bodyUsed?Promise.reject(new TypeError("Already read")):void(t.bodyUsed=!0)}function y(t){return new Promise((function(e,r){t.onload=function(){e(t.result)},t.onerror=function(){r(t.error)}}))}function p(t){var e=new FileReader,r=y(e);return e.readAsArrayBuffer(t),r}function b(t){if(t.slice)return t.slice(0);var e=new Uint8Array(t.byteLength);return e.set(new Uint8Array(t)),e.buffer}function m(){return this.bodyUsed=!1,this._initBody=function(t){var e;this.bodyUsed=this.bodyUsed,this._bodyInit=t,t?"string"==typeof t?this._bodyText=t:o&&Blob.prototype.isPrototypeOf(t)?this._bodyBlob=t:i&&FormData.prototype.isPrototypeOf(t)?this._bodyFormData=t:r&&URLSearchParams.prototype.isPrototypeOf(t)?this._bodyText=t.toString():a&&o&&(e=t)&&DataView.prototype.isPrototypeOf(e)?(this._bodyArrayBuffer=b(t.buffer),this._bodyInit=new Blob([this._bodyArrayBuffer])):a&&(ArrayBuffer.prototype.isPrototypeOf(t)||c(t))?this._bodyArrayBuffer=b(t):this._bodyText=t=Object.prototype.toString.call(t):(this._noBody=!0,this._bodyText=""),this.headers.get("content-type")||("string"==typeof t?this.headers.set("content-type","text/plain;charset=UTF-8"):this._bodyBlob&&this._bodyBlob.type?this.headers.set("content-type",this._bodyBlob.type):r&&URLSearchParams.prototype.isPrototypeOf(t)&&this.headers.set("content-type","application/x-www-form-urlencoded;charset=UTF-8"))},o&&(this.blob=function(){var t=d(this);if(t)return t;if(this._bodyBlob)return Promise.resolve(this._bodyBlob);if(this._bodyArrayBuffer)return Promise.resolve(new Blob([this._bodyArrayBuffer]));if(this._bodyFormData)throw new Error("could not read FormData body as blob");return Promise.resolve(new Blob([this._bodyText]))}),this.arrayBuffer=function(){if(this._bodyArrayBuffer)return d(this)||(ArrayBuffer.isView(this._bodyArrayBuffer)?Promise.resolve(this._bodyArrayBuffer.buffer.slice(this._bodyArrayBuffer.byteOffset,this._bodyArrayBuffer.byteOffset+this._bodyArrayBuffer.byteLength)):Promise.resolve(this._bodyArrayBuffer));if(o)return this.blob().then(p);throw new Error("could not read as ArrayBuffer")},this.text=function(){var t,e,r,n,o,i=d(this);if(i)return i;if(this._bodyBlob)return t=this._bodyBlob,r=y(e=new FileReader),o=(n=/charset=([A-Za-z0-9_-]+)/.exec(t.type))?n[1]:"utf-8",e.readAsText(t,o),r;if(this._bodyArrayBuffer)return Promise.resolve(function(t){for(var e=new Uint8Array(t),r=new Array(e.length),n=0;n<e.length;n++)r[n]=String.fromCharCode(e[n]);return r.join("")}(this._bodyArrayBuffer));if(this._bodyFormData)throw new Error("could not read FormData body as text");return Promise.resolve(this._bodyText)},i&&(this.formData=function(){return this.text().then(g)}),this.json=function(){return this.text().then(JSON.parse)},this}h.prototype.append=function(t,e){t=u(t),e=l(e);var r=this.map[t];this.map[t]=r?r+", "+e:e},h.prototype.delete=function(t){delete this.map[u(t)]},h.prototype.get=function(t){return t=u(t),this.has(t)?this.map[t]:null},h.prototype.has=function(t){return this.map.hasOwnProperty(u(t))},h.prototype.set=function(t,e){this.map[u(t)]=l(e)},h.prototype.forEach=function(t,e){for(var r in this.map)this.map.hasOwnProperty(r)&&t.call(e,this.map[r],r,this)},h.prototype.keys=function(){var t=[];return this.forEach((function(e,r){t.push(r)})),f(t)},h.prototype.values=function(){var t=[];return this.forEach((function(e){t.push(e)})),f(t)},h.prototype.entries=function(){var t=[];return this.forEach((function(e,r){t.push([r,e])})),f(t)},n&&(h.prototype[Symbol.iterator]=h.prototype.entries);var v=["CONNECT","DELETE","GET","HEAD","OPTIONS","PATCH","POST","PUT","TRACE"];function w(t,r){if(!(this instanceof w))throw new TypeError('Please use the "new" operator, this DOM object constructor cannot be called as a function.');var n,o,i=(r=r||{}).body;if(t instanceof w){if(t.bodyUsed)throw new TypeError("Already read");this.url=t.url,this.credentials=t.credentials,r.headers||(this.headers=new h(t.headers)),this.method=t.method,this.mode=t.mode,this.signal=t.signal,i||null==t._bodyInit||(i=t._bodyInit,t.bodyUsed=!0)}else this.url=String(t);if(this.credentials=r.credentials||this.credentials||"same-origin",!r.headers&&this.headers||(this.headers=new h(r.headers)),this.method=(o=(n=r.method||this.method||"GET").toUpperCase(),v.indexOf(o)>-1?o:n),this.mode=r.mode||this.mode||null,this.signal=r.signal||this.signal||function(){if("AbortController"in e)return(new AbortController).signal}(),this.referrer=null,("GET"===this.method||"HEAD"===this.method)&&i)throw new TypeError("Body not allowed for GET or HEAD requests");if(this._initBody(i),!("GET"!==this.method&&"HEAD"!==this.method||"no-store"!==r.cache&&"no-cache"!==r.cache)){var a=/([?&])_=[^&]*/;a.test(this.url)?this.url=this.url.replace(a,"$1_="+(new Date).getTime()):this.url+=(/\?/.test(this.url)?"&":"?")+"_="+(new Date).getTime()}}function g(t){var e=new FormData;return t.trim().split("&").forEach((function(t){if(t){var r=t.split("="),n=r.shift().replace(/\+/g," "),o=r.join("=").replace(/\+/g," ");e.append(decodeURIComponent(n),decodeURIComponent(o))}})),e}function _(t,e){if(!(this instanceof _))throw new TypeError('Please use the "new" operator, this DOM object constructor cannot be called as a function.');if(e||(e={}),this.type="default",this.status=void 0===e.status?200:e.status,this.status<200||this.status>599)throw new RangeError("Failed to construct 'Response': The status provided (0) is outside the range [200, 599].");this.ok=this.status>=200&&this.status<300,this.statusText=void 0===e.statusText?"":""+e.statusText,this.headers=new h(e.headers),this.url=e.url||"",this._initBody(t)}w.prototype.clone=function(){return new w(this,{body:this._bodyInit})},m.call(w.prototype),m.call(_.prototype),_.prototype.clone=function(){return new _(this._bodyInit,{status:this.status,statusText:this.statusText,headers:new h(this.headers),url:this.url})},_.error=function(){var t=new _(null,{status:200,statusText:""});return t.ok=!1,t.status=0,t.type="error",t};var E=[301,302,303,307,308];_.redirect=function(t,e){if(-1===E.indexOf(e))throw new RangeError("Invalid status code");return new _(null,{status:e,headers:{location:t}})};var x=e.DOMException;try{new x}catch(t){(x=function(t,e){this.message=t,this.name=e;var r=Error(t);this.stack=r.stack}).prototype=Object.create(Error.prototype),x.prototype.constructor=x}function T(t,r){return new Promise((function(n,i){var s=new w(t,r);if(s.signal&&s.signal.aborted)return i(new x("Aborted","AbortError"));var c=new XMLHttpRequest;function f(){c.abort()}if(c.onload=function(){var t,e,r={statusText:c.statusText,headers:(t=c.getAllResponseHeaders()||"",e=new h,t.replace(/\r?\n[\t ]+/g," ").split("\r").map((function(t){return 0===t.indexOf("\n")?t.substr(1,t.length):t})).forEach((function(t){var r=t.split(":"),n=r.shift().trim();if(n){var o=r.join(":").trim();try{e.append(n,o)}catch(t){console.warn("Response "+t.message)}}})),e)};0===s.url.indexOf("file://")&&(c.status<200||c.status>599)?r.status=200:r.status=c.status,r.url="responseURL"in c?c.responseURL:r.headers.get("X-Request-URL");var o="response"in c?c.response:c.responseText;setTimeout((function(){n(new _(o,r))}),0)},c.onerror=function(){setTimeout((function(){i(new TypeError("Network request failed"))}),0)},c.ontimeout=function(){setTimeout((function(){i(new TypeError("Network request timed out"))}),0)},c.onabort=function(){setTimeout((function(){i(new x("Aborted","AbortError"))}),0)},c.open(s.method,function(t){try{return""===t&&e.location.href?e.location.href:t}catch(e){return t}}(s.url),!0),"include"===s.credentials?c.withCredentials=!0:"omit"===s.credentials&&(c.withCredentials=!1),"responseType"in c&&(o?c.responseType="blob":a&&(c.responseType="arraybuffer")),r&&"object"==typeof r.headers&&!(r.headers instanceof h||e.Headers&&r.headers instanceof e.Headers)){var d=[];Object.getOwnPropertyNames(r.headers).forEach((function(t){d.push(u(t)),c.setRequestHeader(t,l(r.headers[t]))})),s.headers.forEach((function(t,e){-1===d.indexOf(e)&&c.setRequestHeader(e,t)}))}else s.headers.forEach((function(t,e){c.setRequestHeader(e,t)}));s.signal&&(s.signal.addEventListener("abort",f),c.onreadystatechange=function(){4===c.readyState&&s.signal.removeEventListener("abort",f)}),c.send(void 0===s._bodyInit?null:s._bodyInit)}))}T.polyfill=!0,e.fetch||(e.fetch=T,e.Headers=h,e.Request=w,e.Response=_)}(),function(){function t(e){return t="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t},t(e)}function e(){"use strict";e=function(){return n};var r,n={},o=Object.prototype,i=o.hasOwnProperty,a=Object.defineProperty||function(t,e,r){t[e]=r.value},s="function"==typeof Symbol?Symbol:{},c=s.iterator||"@@iterator",u=s.asyncIterator||"@@asyncIterator",l=s.toStringTag||"@@toStringTag";function f(t,e,r){return Object.defineProperty(t,e,{value:r,enumerable:!0,configurable:!0,writable:!0}),t[e]}try{f({},"")}catch(r){f=function(t,e,r){return t[e]=r}}function h(t,e,r,n){var o=e&&e.prototype instanceof w?e:w,i=Object.create(o.prototype),s=new k(n||[]);return a(i,"_invoke",{value:P(t,r,s)}),i}function d(t,e,r){try{return{type:"normal",arg:t.call(e,r)}}catch(t){return{type:"throw",arg:t}}}n.wrap=h;var y="suspendedStart",p="suspendedYield",b="executing",m="completed",v={};function w(){}function g(){}function _(){}var E={};f(E,c,(function(){return this}));var x=Object.getPrototypeOf,T=x&&x(x(I([])));T&&T!==o&&i.call(T,c)&&(E=T);var A=_.prototype=w.prototype=Object.create(E);function O(t){["next","throw","return"].forEach((function(e){f(t,e,(function(t){return this._invoke(e,t)}))}))}function L(e,r){function n(o,a,s,c){var u=d(e[o],e,a);if("throw"!==u.type){var l=u.arg,f=l.value;return f&&"object"==t(f)&&i.call(f,"__await")?r.resolve(f.__await).then((function(t){n("next",t,s,c)}),(function(t){n("throw",t,s,c)})):r.resolve(f).then((function(t){l.value=t,s(l)}),(function(t){return n("throw",t,s,c)}))}c(u.arg)}var o;a(this,"_invoke",{value:function(t,e){function i(){return new r((function(r,o){n(t,e,r,o)}))}return o=o?o.then(i,i):i()}})}function P(t,e,n){var o=y;return function(i,a){if(o===b)throw Error("Generator is already running");if(o===m){if("throw"===i)throw a;return{value:r,done:!0}}for(n.method=i,n.arg=a;;){var s=n.delegate;if(s){var c=j(s,n);if(c){if(c===v)continue;return c}}if("next"===n.method)n.sent=n._sent=n.arg;else if("throw"===n.method){if(o===y)throw o=m,n.arg;n.dispatchException(n.arg)}else"return"===n.method&&n.abrupt("return",n.arg);o=b;var u=d(t,e,n);if("normal"===u.type){if(o=n.done?m:p,u.arg===v)continue;return{value:u.arg,done:n.done}}"throw"===u.type&&(o=m,n.method="throw",n.arg=u.arg)}}}function j(t,e){var n=e.method,o=t.iterator[n];if(o===r)return e.delegate=null,"throw"===n&&t.iterator.return&&(e.method="return",e.arg=r,j(t,e),"throw"===e.method)||"return"!==n&&(e.method="throw",e.arg=new TypeError("The iterator does not provide a '"+n+"' method")),v;var i=d(o,t.iterator,e.arg);if("throw"===i.type)return e.method="throw",e.arg=i.arg,e.delegate=null,v;var a=i.arg;return a?a.done?(e[t.resultName]=a.value,e.next=t.nextLoc,"return"!==e.method&&(e.method="next",e.arg=r),e.delegate=null,v):a:(e.method="throw",e.arg=new TypeError("iterator result is not an object"),e.delegate=null,v)}function B(t){var e={tryLoc:t[0]};1 in t&&(e.catchLoc=t[1]),2 in t&&(e.finallyLoc=t[2],e.afterLoc=t[3]),this.tryEntries.push(e)}function S(t){var e=t.completion||{};e.type="normal",delete e.arg,t.completion=e}function k(t){this.tryEntries=[{tryLoc:"root"}],t.forEach(B,this),this.reset(!0)}function I(e){if(e||""===e){var n=e[c];if(n)return n.call(e);if("function"==typeof e.next)return e;if(!isNaN(e.length)){var o=-1,a=function t(){for(;++o<e.length;)if(i.call(e,o))return t.value=e[o],t.done=!1,t;return t.value=r,t.done=!0,t};return a.next=a}}throw new TypeError(t(e)+" is not iterable")}return g.prototype=_,a(A,"constructor",{value:_,configurable:!0}),a(_,"constructor",{value:g,configurable:!0}),g.displayName=f(_,l,"GeneratorFunction"),n.isGeneratorFunction=function(t){var e="function"==typeof t&&t.constructor;return!!e&&(e===g||"GeneratorFunction"===(e.displayName||e.name))},n.mark=function(t){return Object.setPrototypeOf?Object.setPrototypeOf(t,_):(t.__proto__=_,f(t,l,"GeneratorFunction")),t.prototype=Object.create(A),t},n.awrap=function(t){return{__await:t}},O(L.prototype),f(L.prototype,u,(function(){return this})),n.AsyncIterator=L,n.async=function(t,e,r,o,i){void 0===i&&(i=Promise);var a=new L(h(t,e,r,o),i);return n.isGeneratorFunction(e)?a:a.next().then((function(t){return t.done?t.value:a.next()}))},O(A),f(A,l,"Generator"),f(A,c,(function(){return this})),f(A,"toString",(function(){return"[object Generator]"})),n.keys=function(t){var e=Object(t),r=[];for(var n in e)r.push(n);return r.reverse(),function t(){for(;r.length;){var n=r.pop();if(n in e)return t.value=n,t.done=!1,t}return t.done=!0,t}},n.values=I,k.prototype={constructor:k,reset:function(t){if(this.prev=0,this.next=0,this.sent=this._sent=r,this.done=!1,this.delegate=null,this.method="next",this.arg=r,this.tryEntries.forEach(S),!t)for(var e in this)"t"===e.charAt(0)&&i.call(this,e)&&!isNaN(+e.slice(1))&&(this[e]=r)},stop:function(){this.done=!0;var t=this.tryEntries[0].completion;if("throw"===t.type)throw t.arg;return this.rval},dispatchException:function(t){if(this.done)throw t;var e=this;function n(n,o){return s.type="throw",s.arg=t,e.next=n,o&&(e.method="next",e.arg=r),!!o}for(var o=this.tryEntries.length-1;o>=0;--o){var a=this.tryEntries[o],s=a.completion;if("root"===a.tryLoc)return n("end");if(a.tryLoc<=this.prev){var c=i.call(a,"catchLoc"),u=i.call(a,"finallyLoc");if(c&&u){if(this.prev<a.catchLoc)return n(a.catchLoc,!0);if(this.prev<a.finallyLoc)return n(a.finallyLoc)}else if(c){if(this.prev<a.catchLoc)return n(a.catchLoc,!0)}else{if(!u)throw Error("try statement without catch or finally");if(this.prev<a.finallyLoc)return n(a.finallyLoc)}}}},abrupt:function(t,e){for(var r=this.tryEntries.length-1;r>=0;--r){var n=this.tryEntries[r];if(n.tryLoc<=this.prev&&i.call(n,"finallyLoc")&&this.prev<n.finallyLoc){var o=n;break}}o&&("break"===t||"continue"===t)&&o.tryLoc<=e&&e<=o.finallyLoc&&(o=null);var a=o?o.completion:{};return a.type=t,a.arg=e,o?(this.method="next",this.next=o.finallyLoc,v):this.complete(a)},complete:function(t,e){if("throw"===t.type)throw t.arg;return"break"===t.type||"continue"===t.type?this.next=t.arg:"return"===t.type?(this.rval=this.arg=t.arg,this.method="return",this.next="end"):"normal"===t.type&&e&&(this.next=e),v},finish:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.finallyLoc===t)return this.complete(r.completion,r.afterLoc),S(r),v}},catch:function(t){for(var e=this.tryEntries.length-1;e>=0;--e){var r=this.tryEntries[e];if(r.tryLoc===t){var n=r.completion;if("throw"===n.type){var o=n.arg;S(r)}return o}}throw Error("illegal catch attempt")},delegateYield:function(t,e,n){return this.delegate={iterator:I(t),resultName:e,nextLoc:n},"next"===this.method&&(this.arg=r),v}},n}function r(t,e){var r="undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(!r){if(Array.isArray(t)||(r=n(t))||e&&t&&"number"==typeof t.length){r&&(t=r);var o=0,i=function(){};return{s:i,n:function(){return o>=t.length?{done:!0}:{done:!1,value:t[o++]}},e:function(t){throw t},f:i}}throw new TypeError("Invalid attempt to iterate non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}var a,s=!0,c=!1;return{s:function(){r=r.call(t)},n:function(){var t=r.next();return s=t.done,t},e:function(t){c=!0,a=t},f:function(){try{s||null==r.return||r.return()}finally{if(c)throw a}}}}function n(t,e){if(t){if("string"==typeof t)return o(t,e);var r={}.toString.call(t).slice(8,-1);return"Object"===r&&t.constructor&&(r=t.constructor.name),"Map"===r||"Set"===r?Array.from(t):"Arguments"===r||/^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(r)?o(t,e):void 0}}function o(t,e){(null==e||e>t.length)&&(e=t.length);for(var r=0,n=Array(e);r<e;r++)n[r]=t[r];return n}function i(t,e,r,n,o,i,a){try{var s=t[i](a),c=s.value}catch(t){return void r(t)}s.done?e(c):Promise.resolve(c).then(n,o)}function a(t){return function(){var e=this,r=arguments;return new Promise((function(n,o){var a=t.apply(e,r);function s(t){i(a,n,o,s,c,"next",t)}function c(t){i(a,n,o,s,c,"throw",t)}s(void 0)}))}}function s(t){return c.apply(this,arguments)}function c(){return(c=a(e().mark((function t(r){var n,o,i,a;return e().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return n="".concat(f,"/automation/scripts/script_result_on_cluster/?task_id=").concat(r),console.log("script_result_on_cluster url",n),o={headers:h},t.next=5,fetch(n,o);case 5:return i=t.sent,t.next=8,i.json();case 8:if(a=t.sent,!i.ok){t.next=13;break}return t.abrupt("return",a);case 13:alert("Произошла ошибка при запросе:\n".concat(i.detail));case 14:case"end":return t.stop()}}),t)})))).apply(this,arguments)}function u(t){return l.apply(this,arguments)}function l(){return(l=a(e().mark((function t(r){var n,o,i,a;return e().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return console.log("runScript(scriptMeta)"),n="".concat(f,"/automation/scripts/script_start_on_cluster/"),o={method:"POST",headers:h,body:JSON.stringify(r)},t.next=5,fetch(n,o);case 5:return i=t.sent,t.next=8,i.json();case 8:if(a=t.sent,!i.ok){t.next=13;break}return t.abrupt("return",a);case 13:alert("Произошла ошибка при запросе:\n".concat(i.detail));case 14:case"end":return t.stop()}}),t)})))).apply(this,arguments)}var f=window.location.origin;console.log("window.location.origin",f);var h={"Content-Type":"application/json",Accept:"application/json",Authorization:"Bearer ".concat(function(){var t="access_token=";if(document.cookie.length>0){var e=document.cookie.indexOf(t);if(-1!=e){e+=13;var r=document.cookie.indexOf(";",e);return-1==r&&(r=document.cookie.length),unescape(document.cookie.substring(e,r))}}}())};window.onload=a(e().mark((function t(){var o,i,c,l,f,h,d,y,p,b,m,v,w;return e().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:console.log("Run on onload"),o=new URLSearchParams(window.location.search),i=r(o.entries());try{for(i.s();!(c=i.n()).done;)g=c.value,_=2,l=function(t){if(Array.isArray(t))return t}(g)||function(t,e){var r=null==t?null:"undefined"!=typeof Symbol&&t[Symbol.iterator]||t["@@iterator"];if(null!=r){var n,o,i,a,s=[],c=!0,u=!1;try{if(i=(r=r.call(t)).next,0===e){if(Object(r)!==r)return;c=!1}else for(;!(c=(n=i.call(r)).done)&&(s.push(n.value),s.length!==e);c=!0);}catch(t){u=!0,o=t}finally{try{if(!c&&null!=r.return&&(a=r.return(),Object(a)!==a))return}finally{if(u)throw o}}return s}}(g,_)||n(g,_)||function(){throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.")}(),f=l[0],h=l[1],"RegionID"==f&&(d=h),"SiteID"==f&&(y=h)}catch(t){i.e(t)}finally{i.f()}if(!d||!y){t.next=20;break}return console.log("start >>"),document.title="Данные о площадке "+d+"-"+y,(p=document.getElementById("header_div"))&&(p.innerHTML=document.title),(b=document.getElementById("tabs"))&&(b.style.display="block"),m={name:"Opview_Show_Contacts_on_site",need_result:!0,exec_timeout:15,params:{RegionID:d,SiteID:y}},console.log(m),t.next=15,u(m);case 15:null!=(v=t.sent)&&v.task_id&&(w=setTimeout(a(e().mark((function t(){var r;return e().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:r=setInterval(a(e().mark((function t(){var n,o,i,a,c,u,l,f,h;return e().wrap((function(t){for(;;)switch(t.prev=t.next){case 0:return t.next=2,s(v.task_id);case 2:if(!(n=t.sent)||null!=n&&n.ready){if(clearInterval(r),clearTimeout(w),console.log(n),o=document.getElementById("site_info"),n.result){if(i=n.result.site_info,o)if(i.length>0){for(a="<table border='1' bordercolor='black' cellpadding='4' style='border-collapse:collapse'>",a+="<tr><th>Имя площадки</th><th>VIP</th><th>Телефон</th><th>Маршрут</th><th>Место</th></tr>",c=0;c<i.length;c++)a=(a=(a=(a=(a=(a+="<tr>")+"<td>"+i[c].NAME_RUS+"</td>")+"<td>"+i[c].VIP+"</td>")+"<td>"+i[c].PHONE+"</td>")+"<td>"+i[c].ROUTE+"</td>")+"<td>"+i[c].PLACE+"</td>",a+="</tr>";a+="</table>",o.innerHTML=a}else o.innerHTML="Нет данных"}else o&&(i.innerHTML="Что-то пошло не так...");if(u=document.getElementById("contact_info"),n.result){if(l=n.result.contact_info,u)if(l.length>0){for(f="<table border='1' bordercolor='black' cellpadding='4' style='border-collapse:collapse'>",f+="<tr><th>Имя</th><th>Должность</th><th>Телефон</th><th>Тип контакта</th></tr>",h=0;h<l.length;h++)f=(f=(f=(f=(f+="<tr>")+"<td>"+l[h].NAME+"</td>")+"<td>"+l[h].POSITION+"</td>")+"<td>"+l[h].PHONE+"</td>")+"<td>"+l[h].CONTACT_TYPE+"</td>",f+="</tr>";f+="</table>",u.innerHTML=f}else u.innerHTML="Нет данных"}else u&&(u.innerHTML="Что-то пошло не так...")}case 4:case"end":return t.stop()}}),t)}))),1e3);case 1:case"end":return t.stop()}}),t)}))),m.exec_timeout)),console.log("<< end"),t.next=21;break;case 20:p&&(p.innerHTML="Недостаточно параметров. Укажите регион и номер площадки");case 21:case"end":return t.stop()}var g,_}),t)})))}()}();
-   </script>
-   <body>
-      <div id="header_div" class="header">Информация о площадке</div>
-      <!-- <div id="ie_div" class="header">Могут быть проблемы с отображением в Internet Explorer. Просьба использовать Chrome/Edge</div> -->
-      <div id="tabs" style="display:none;" class="container">
-         <div class="tab">
-            <input checked id="tab-btn-1" name="tab-btn" type="radio" value="">
-            <label for="tab-btn-1">Площадка</label>
-            <input id="tab-btn-2" name="tab-btn" type="radio" value="">
-            <label for="tab-btn-2">Контакты</label>
-            <div class="tab-content" id="site_info">Идет поиск данных по площадке в NRI...</div>
-            <div class="tab-content" id="contact_info">Идет поиск данных по площадке в NRI...</div>
-         </div>
-      <div>
-   </body>
-</html>
+<head><script defer src="bundle.js"></script></head>Html Webpack Plugin:
+<pre>
+  Error: Child compilation failed:
+  Module not found: Error: Can't resolve 'C:\Gelarm\babel-polyfill\src\index.html' in 'C:\Gelarm\babel-polyfill'
+  ModuleNotFoundError: Module not found: Error: Can't resolve 'C:\Gelarm\babel-polyfill\src\index.html' in 'C:\Gelarm\babel-polyfi  ll'
+      at C:\Gelarm\babel-polyfill\node_modules\webpack\lib\Compilation.js:2109:28
+      at C:\Gelarm\babel-polyfill\node_modules\webpack\lib\NormalModuleFactory.js:908:13
+      at eval (eval at create (C:\Gelarm\babel-polyfill\node_modules\tapable\lib\HookCodeFactory.js:33:10), <anonymous>:10:1)
+      at C:\Gelarm\babel-polyfill\node_modules\webpack\lib\NormalModuleFactory.js:333:22
+      at eval (eval at create (C:\Gelarm\babel-polyfill\node_modules\tapable\lib\HookCodeFactory.js:33:10), <anonymous>:9:1)
+      at C:\Gelarm\babel-polyfill\node_modules\webpack\lib\NormalModuleFactory.js:512:22
+      at C:\Gelarm\babel-polyfill\node_modules\webpack\lib\NormalModuleFactory.js:150:10
+      at C:\Gelarm\babel-polyfill\node_modules\webpack\lib\NormalModuleFactory.js:775:25
+      at C:\Gelarm\babel-polyfill\node_modules\webpack\lib\NormalModuleFactory.js:992:8
+      at C:\Gelarm\babel-polyfill\node_modules\webpack\lib\NormalModuleFactory.js:1121:5
+  
+  - Compilation.js:2109 
+    [babel-polyfill]/[webpack]/lib/Compilation.js:2109:28
+  
+  - NormalModuleFactory.js:908 
+    [babel-polyfill]/[webpack]/lib/NormalModuleFactory.js:908:13
+  
+  
+  - NormalModuleFactory.js:333 
+    [babel-polyfill]/[webpack]/lib/NormalModuleFactory.js:333:22
+  
+  
+  - NormalModuleFactory.js:512 
+    [babel-polyfill]/[webpack]/lib/NormalModuleFactory.js:512:22
+  
+  - NormalModuleFactory.js:150 
+    [babel-polyfill]/[webpack]/lib/NormalModuleFactory.js:150:10
+  
+  - NormalModuleFactory.js:775 
+    [babel-polyfill]/[webpack]/lib/NormalModuleFactory.js:775:25
+  
+  - NormalModuleFactory.js:992 
+    [babel-polyfill]/[webpack]/lib/NormalModuleFactory.js:992:8
+  
+  - NormalModuleFactory.js:1121 
+    [babel-polyfill]/[webpack]/lib/NormalModuleFactory.js:1121:5
+  
+  - child-compiler.js:174 
+    [babel-polyfill]/[html-webpack-plugin]/lib/child-compiler.js:174:18
+  
+  - Compiler.js:627 finalCallback
+    [babel-polyfill]/[webpack]/lib/Compiler.js:627:5
+  
+  - Compiler.js:662 
+    [babel-polyfill]/[webpack]/lib/Compiler.js:662:11
+  
+  - Compiler.js:1348 
+    [babel-polyfill]/[webpack]/lib/Compiler.js:1348:17
+  
+  
+  - Hook.js:18 Hook.CALL_ASYNC_DELEGATE [as _callAsync]
+    [babel-polyfill]/[tapable]/lib/Hook.js:18:14
+  
+  - Compiler.js:1344 
+    [babel-polyfill]/[webpack]/lib/Compiler.js:1344:33
+  
+  - Compilation.js:2925 finalCallback
+    [babel-polyfill]/[webpack]/lib/Compilation.js:2925:11
+  
+  - Compilation.js:3238 
+    [babel-polyfill]/[webpack]/lib/Compilation.js:3238:11
+  
+  
+</pre>

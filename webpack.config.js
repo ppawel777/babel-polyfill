@@ -12,7 +12,7 @@ module.exports = {
    module: {
       rules: [
          {
-            test: /\.m?js$/,
+            test: /\.js$/,
             exclude: /node_modules/,
             use: {
                loader: "babel-loader",
@@ -25,11 +25,11 @@ module.exports = {
       ],
    },
    
-   plugins: [
-      new HtmlWebpackPlugin({
-         template: './src/index.html',
-      }),
-   ],
+   // plugins: [
+   //    new HtmlWebpackPlugin({
+   //       template: './src/index.html',
+   //    }),
+   // ],
    //   devServer: {
    //     static: {
    //       directory: path.join(__dirname, 'dist'), // Каталог для статики

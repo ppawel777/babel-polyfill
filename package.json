@@ -1,5 +1,5 @@
 {
-  "name": "test_babel",
+  "name": "babel-polyfill",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
