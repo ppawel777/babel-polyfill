@@ -1,0 +1,1 @@
+npm run build - сборка содержимого index.js
