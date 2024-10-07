@@ -1,5 +1,3 @@
-import 'core-js/fn/promise'
-
 function getCookies() {
    let result = {}
    document.cookie.split(';').forEach((el) => {

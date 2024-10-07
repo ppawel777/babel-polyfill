@@ -95,6 +95,8 @@
     }
 
     const host = window.location.origin
+    const cookies = getCookies()
+    
     console.log(host);
     const headers = {
         "Content-Type": "application/json",
