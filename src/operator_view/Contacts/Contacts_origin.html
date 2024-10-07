@@ -1,0 +1,269 @@
+<html>
+<title>Информация о площадке и контактах</title>
+<style>
+.container {
+    margin: 1rem;
+    padding: 1.5rem;
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+  }
+
+  .header {
+    margin-left: 1rem;
+    padding-top: 1rem;
+  }
+
+  .tab {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tab > input[type="radio"] {
+    display: none;
+  }
+
+  .tab-content {
+    display: none;
+    width: 100%;
+    margin-top: 1rem;
+  }
+
+  #tab-btn-1:checked~#site_info,
+  #tab-btn-2:checked~#contact_info
+  {
+    display: block;
+  }
+
+  .tab > label {
+    display: block;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+    text-decoration: none;
+    color: #0d6efd;
+    border: 0;
+    border-radius: 0.375rem;
+    background: 0 0;
+  }
+
+  .tab > input[type="radio"]:checked + label {
+    cursor: default;
+    color: #fff;
+    background-color: #0d6efd;
+  }
+</style>
+<script>
+    function getCookies() {
+        let result = {}
+       document.cookie.split(";").forEach(el => {
+            let split = el.split("=")
+            result[split[0].trim()] = split.slice(1).join("=")
+        })
+        return result
+    }
+
+    async function getScriptResult(taskId) {
+        const url = `${host}/automation/scripts/script_result_on_cluster/?task_id=${taskId}`
+        console.log(url);
+        const requestParams = {headers: headers}
+        const response = await fetch(url, requestParams)
+        const data = await response.json()
+
+        if (response.ok) {
+            return data
+        } else {
+            alert(`Произошла ошибка при запросе:\n${apiError.detail}`);
+        }
+    }
+
+    async function runScript(scriptMeta) {
+        console.log("runScript(scriptMeta)");
+        const url = `${host}/automation/scripts/script_start_on_cluster/`
+        const requestParams = {
+            method: "POST",
+            headers: headers,
+            body: JSON.stringify(scriptMeta)
+        }
+        const response = await fetch(url, requestParams)
+        const data = await response.json()
+
+        if (response.ok) {
+            return data
+        } else {
+            alert(`Произошла ошибка при запросе:\n${apiError.detail}`);
+        }
+    }
+
+    const host = window.location.origin
+    console.log(host);
+    const headers = {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${cookies.access_token}`,
+    }
+
+    window.onload = async function(){
+
+        console.log("Run on onload");
+
+        // убираем комментарий для IE
+        if (!(navigator.userAgent.indexOf('MSIE')!==-1 || navigator.appVersion.indexOf('Trident/') > -1))
+        {
+            var IE_div = document.getElementById("ie_div");
+            IE_div.style.display = "none";
+        }
+
+        // получаем параметры площадки для поиска
+        const searchParams = new URLSearchParams(window.location.search);
+        for (const [paramName, paramValue] of searchParams.entries()) {
+            console.log(paramName + ": " + paramValue);
+            if (paramName=="RegionID")
+            {
+                var RegionID = paramValue;
+            }
+            if (paramName=="SiteID")
+            {
+                var SiteID = paramValue;
+            }
+        }
+        
+        // если параметры заданы
+        if (RegionID && SiteID)
+        {
+            // информация
+            document.title = "Данные о площадке " + RegionID + "-" + SiteID
+            var header_div = document.getElementById("header_div");
+            if (header_div)
+            {
+                header_div.innerHTML = document.title;
+            }
+            // показываем табы
+            var tabs = document.getElementById("tabs");
+            if (tabs)
+            {
+                tabs.style.display = "block";
+            }
+
+            const scriptMeta = {
+                            name: 'Opview_Show_Contacts_on_site',
+                            need_result: true,
+                            exec_timeout: 15,
+                            params: {'RegionID': RegionID, 'SiteID': SiteID}
+                            }
+
+            console.log(scriptMeta);
+
+            const runData = await runScript(scriptMeta);
+            if (runData?.task_id) {
+                let timeout = setTimeout(async () => {
+                    let interval = setInterval(async () => {
+                        const resultData = await getScriptResult(runData.task_id)
+                        if (!resultData || resultData?.ready) {
+                            clearInterval(interval)
+                            clearTimeout(timeout)
+                            console.log(resultData);
+                            
+                            // информация по площадке
+                            var site_info_div = document.getElementById("site_info");
+                            if (resultData["result"])
+                            {
+                                site_info = resultData["result"]["site_info"];
+                                if (site_info_div)
+                                {
+                                    if (site_info.length>0)
+                                    {
+                                        site_info_html = "<table border='1' bordercolor='black' cellpadding='4' style='border-collapse:collapse'>";
+                                        site_info_html = site_info_html + "<tr><th>Имя площадки</th><th>VIP</th><th>Телефон</th><th>Маршрут</th><th>Место</th></tr>";
+                                        for (i=0;i<site_info.length;i++)
+                                        {
+                                            site_info_html = site_info_html + "<tr>";
+                                            site_info_html = site_info_html + "<td>" + site_info[i]["NAME_RUS"] + "</td>";
+                                            site_info_html = site_info_html + "<td>" + site_info[i]["VIP"] + "</td>";
+                                            site_info_html = site_info_html + "<td>" + site_info[i]["PHONE"] + "</td>";
+                                            site_info_html = site_info_html + "<td>" + site_info[i]["ROUTE"] + "</td>";
+                                            site_info_html = site_info_html + "<td>" + site_info[i]["PLACE"] + "</td>";
+                                            site_info_html = site_info_html + "</tr>";
+                                        }
+                                        site_info_html = site_info_html + "</table>"
+                                        site_info_div.innerHTML = site_info_html; 
+                                    }
+                                    else
+                                    {
+                                        site_info_div.innerHTML = "Нет данных";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (site_info_div)
+                                {
+                                        site_info.innerHTML = "Что-то пошло не так...";
+                                }
+                            }
+
+                            // информация по контактам
+                            var contact_info_div = document.getElementById("contact_info");
+                            if (resultData["result"])
+                            {
+                                contact_info = resultData["result"]["contact_info"];
+                                if (contact_info_div)
+                                {
+                                    if (contact_info.length>0)
+                                    {
+                                        contact_info_html = "<table border='1' bordercolor='black' cellpadding='4' style='border-collapse:collapse'>";
+                                        contact_info_html = contact_info_html + "<tr><th>Имя</th><th>Должность</th><th>Телефон</th><th>Тип контакта</th></tr>";
+                                        for (i=0;i<contact_info.length;i++)
+                                        {
+                                            contact_info_html = contact_info_html + "<tr>";
+                                            contact_info_html = contact_info_html + "<td>" + contact_info[i]["NAME"] + "</td>";
+                                            contact_info_html = contact_info_html + "<td>" + contact_info[i]["POSITION"] + "</td>";
+                                            contact_info_html = contact_info_html + "<td>" + contact_info[i]["PHONE"] + "</td>";
+                                            contact_info_html = contact_info_html + "<td>" + contact_info[i]["CONTACT_TYPE"] + "</td>";
+                                            contact_info_html = contact_info_html + "</tr>";
+                                        }
+                                        contact_info_html = contact_info_html + "</table>"
+                                        contact_info_div.innerHTML = contact_info_html; 
+                                    }
+                                    else
+                                    {
+                                        contact_info_div.innerHTML = "Нет данных";
+                                    }
+                                }
+                            }
+                            else
+                            {
+                                if (contact_info_div)
+                                {
+                                        contact_info_div.innerHTML = "Что-то пошло не так...";
+                                }
+                            }
+                        }
+                    }, 1000)
+                }, scriptMeta.exec_timeout)
+            }   
+            console.log("end");
+        }
+        else
+        {
+            var header_div = document.getElementById("header_div");
+            if (header_div)
+            {
+                header_div.innerHTML = "Недостаточно параметров. Укажите регион и номер площадки";
+            } 
+        }
+    }
+</script>
+<body>
+    <div id="header_div" class="header">Информация о площадке</div>
+    <div id="ie_div" class="header">Могут быть проблемы с отображением в Internet Explorer. Просьба использовать Chrome/Edge</div>
+    <div id="tabs" style="display:none;" class="container">
+        <div class="tab">
+            <input checked id="tab-btn-1" name="tab-btn" type="radio" value="">
+            <label for="tab-btn-1">Площадка</label>
+            <input id="tab-btn-2" name="tab-btn" type="radio" value="">
+            <label for="tab-btn-2">Контакты</label>
+            <div class="tab-content" id="site_info">Идет поиск данных по площадке в NRI...</div>
+            <div class="tab-content" id="contact_info">Идет поиск данных по площадке в NRI...</div>
+        </div>
+    <div>
+</body>

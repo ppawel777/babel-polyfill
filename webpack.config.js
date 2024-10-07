@@ -1,10 +1,10 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+// const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
    entry: ['whatwg-fetch', './src/index.js'],
-   mode: 'development',
-   // mode: 'production',
+   // mode: 'development',
+   mode: 'production',
    output: {
       filename: 'bundle.js',
       path: path.resolve(__dirname, 'dist'),

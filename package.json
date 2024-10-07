@@ -4,9 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./src/index.js -d dist",
-    "webpack": "webpack --config webpack.config.js",
+    "babel": "babel ./src/index.js -d dist",
+    "build": "webpack --config webpack.config.js",
     "start": "npm run build && node dist/index.js"
   },
   "author": "",

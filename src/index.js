@@ -1,17 +1,5 @@
 import 'core-js/fn/promise'
 
-// function getCookie(name) {
-//     var search = name + '='
-//     if (document.cookie.length > 0) {
-//        var offset = document.cookie.indexOf(search)
-//        if (offset != -1) {
-//           offset += search.length
-//           var end = document.cookie.indexOf(';', offset)
-//           if (end == -1) end = document.cookie.length
-//           return unescape(document.cookie.substring(offset, end))
-//        }
-//     }
-//  }
 function getCookies() {
    let result = {}
    document.cookie.split(';').forEach((el) => {
@@ -23,7 +11,7 @@ function getCookies() {
 
 async function getScriptResult(taskId) {
    const url = `${host}/automation/scripts/script_result_on_cluster/?task_id=${taskId}`
-   console.log('script_result_on_cluster url', url)
+   // console.log('script_result_on_cluster url', url)
    const requestParams = { headers: headers }
    const response = await fetch(url, requestParams)
    const data = await response.json()
@@ -36,7 +24,7 @@ async function getScriptResult(taskId) {
 }
 
 async function runScript(scriptMeta) {
-   console.log('runScript(scriptMeta)')
+   // console.log('runScript(scriptMeta)')
    const url = `${host}/automation/scripts/script_start_on_cluster/`
    const requestParams = {
       method: 'POST',
@@ -60,11 +48,10 @@ const headers = {
    'Content-Type': 'application/json',
    Accept: 'application/json',
    Authorization: `Bearer ${cookies.access_token}`,
-   //  Authorization: `Bearer ${getCookie('access_token')}`,
 }
 
 window.onload = async function () {
-   console.log('Run on onload')
+   // console.log('Run on onload')
 
    // убираем комментарий для IE
    // if (!(navigator.userAgent.indexOf('MSIE') !== -1 || navigator.appVersion.indexOf('Trident/') > -1)) {
@@ -80,23 +67,9 @@ window.onload = async function () {
    var RegionID = getSearchParams('RegionID') || null
    var SiteID = getSearchParams('SiteID') || null
 
-   //  const searchParams = new URLSearchParams(window.location.search)
-   //  console.log('searchParams', searchParams)
-   //  var RegionID = null
-   //  var SiteID = null
-   //  for (const [paramName, paramValue] of searchParams.entries()) {
-   //     console.log(paramName + ': ' + paramValue)
-   //     if (paramName == 'RegionID') {
-   //        RegionID = paramValue
-   //     }
-   //     if (paramName == 'SiteID') {
-   //        SiteID = paramValue
-   //     }
-   //  }
-
    // если параметры заданы
    if (RegionID && SiteID) {
-      console.log('start >>')
+      // console.log('start >>')
       // информация
       document.title = 'Данные о площадке ' + RegionID + '-' + SiteID
       var header_div = document.getElementById('header_div')
@@ -116,7 +89,7 @@ window.onload = async function () {
          params: { RegionID: RegionID, SiteID: SiteID },
       }
 
-      console.log(scriptMeta)
+      // console.log(scriptMeta)
 
       const runData = await runScript(scriptMeta)
       if (runData?.task_id) {
@@ -126,7 +99,7 @@ window.onload = async function () {
                if (!resultData || resultData?.ready) {
                   clearInterval(interval)
                   clearTimeout(timeout)
-                  console.log(resultData)
+                  // console.log(resultData)
 
                   // информация по площадке
                   var site_info_div = document.getElementById('site_info')
@@ -194,9 +167,8 @@ window.onload = async function () {
             }, 1000)
          }, scriptMeta.exec_timeout)
       }
-      console.log('<< end')
+      // console.log('<< end')
    } else {
-      // var header_div = document.getElementById('header_div')
       if (header_div) {
          header_div.innerHTML = 'Недостаточно параметров. Укажите регион и номер площадки'
       }
